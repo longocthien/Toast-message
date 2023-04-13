@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Toast Message</title>
+        <!-- link icon -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <!-- css -->
+        <link rel="stylesheet" href="./assets/css/reset.css" />
+        <link rel="stylesheet" href="./assets/css/styles.css" />
+    </head>
+    <body>
+        <div id="toast"></div>
+
+        <div class="btn-block">
+            <div onclick="ShowSuccess()" class="btn btn--success">
+                Show success
+            </div>
+            <div onclick="ShowInfo()" class="btn btn--info">Show info</div>
+            <div onclick="ShowWarning()" class="btn btn--warning">
+                Show warning
+            </div>
+            <div onclick="ShowError()" class="btn btn--error">Show error</div>
+        </div>
+
+        <script>
+            // Toast function
+            function toast({
+                title = '',
+                message = '',
+                type = 'info',
+                duration = 3000,
+                linear = 1000,
+            }) {
+                const main = document.getElementById('toast');
+                if (main) {
+                    const toast = document.createElement('div');
+
+                    // Auto remove Toast
+                    const autoRemoveId = setTimeout(function () {
+                        main.removeChild(toast);
+                    }, duration + linear);
+
+                    // Click to remove
+                    toast.onclick = function (e) {
+                        if (e.target.closest('.toast__close')) {
+                            main.removeChild(toast);
+                            clearTimeout(autoRemoveId);
+                        }
+                    };
+                    const icons = {
+                        success: 'fa-solid fa-circle-check fa-2xl',
+                        info: 'fa-solid fa-circle-info fa-2xl',
+                        warning: 'fa-solid fa-circle-exclamation fa-2xl',
+                        error: 'fa-solid fa-circle-exclamation fa-2xl',
+                    };
+
+                    const icon = icons[type];
+                    const delay = (duration / 1000).toFixed(2);
+                    const linearDelay = (1000 / 1000).toFixed(2);
+
+                    toast.classList.add('toast', `toast__${type}`);
+                    toast.style.animation = `slideInLeft ease 1s, fadeOut linear ${linearDelay}s ${delay}s forwards`;
+
+                    toast.innerHTML = `
+                            <div class="toast__icon">
+                            <i
+                                class="${icon}"
+                                style="color: var(--${type}-color)"
+                            ></i>
+                             </div>
+                            <div class="toast__body">
+                                <h3 class="toast__title">${title}</h3>
+                                <p class="toast__msg">${message}</p>
+                            </div>
+                            <div class="toast__close">
+                                <i class="fa-solid fa-xmark" style="color: #aaabaf"></i>
+                            </div>
+                    `;
+                    main.appendChild(toast);
+                }
+            }
+
+            function ShowSuccess() {
+                toast({
+                    title: 'Success',
+                    message:
+                        'Tham gia nhóm Học lập trình tại F8 trên Facebook để cùng nhau trao đổi trong quá trình học tập',
+                    type: 'success',
+                    duration: 1000,
+                    linear: 1000,
+                });
+            }
+            function ShowInfo() {
+                toast({
+                    title: 'Info',
+                    message:
+                        'Tham gia nhóm Học lập trình tại F8 trên Facebook để cùng nhau trao đổi trong quá trình học tập',
+                    type: 'info',
+                    duration: 1000,
+                    linear: 1000,
+                });
+            }
+            function ShowWarning() {
+                toast({
+                    title: 'Warning',
+                    message:
+                        'Tham gia nhóm Học lập trình tại F8 trên Facebook để cùng nhau trao đổi trong quá trình học tập',
+                    type: 'warning',
+                    duration: 10000,
+                    linear: 1000,
+                });
+            }
+            function ShowError() {
+                toast({
+                    title: 'Error',
+                    message:
+                        'Tham gia nhóm Học lập trình tại F8 trên Facebook để cùng nhau trao đổi trong quá trình học tập',
+                    type: 'error',
+                    duration: 3000,
+                    linear: 1000,
+                });
+            }
+        </script>
+    </body>
+</html>

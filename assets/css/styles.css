@@ -1,0 +1,119 @@
+:root {
+    --success-color: #20a779;
+    --info-color: #007bc3;
+    --warning-color: #f0a92d;
+    --error-color: red;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.btn {
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 1.56;
+    color: #ffffff;
+    background: green;
+    border: 1.5px solid green;
+    border-radius: 999px;
+    width: 173px;
+    height: 57px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn + .btn {
+    margin-top: 20px;
+}
+#toast {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 99999;
+}
+.toast {
+    max-width: 450px;
+    min-width: 400px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 10px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+        rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+    transition: all linear 0.3s;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+.toast + .toast {
+    margin-top: 24px;
+}
+
+.toast__success::before,
+.toast__info::before,
+.toast__warning::before,
+.toast__error::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 80px;
+    border-radius: 999px;
+}
+
+.toast__success::before {
+    background: var(--success-color);
+}
+.toast__info::before {
+    background: var(--info-color);
+}
+.toast__warning::before {
+    background: var(--warning-color);
+}
+.toast__error::before {
+    background: var(--error-color);
+}
+
+.toast__icon {
+    margin: 0 20px;
+}
+.toast__body {
+    flex-grow: 1;
+}
+.toast__title {
+    font-size: 24px;
+    font-weight: 600;
+}
+.toast__msg {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #aaabaf;
+    line-height: 1.2;
+}
+.toast__close {
+    margin: 0 10px 0 20px;
+    cursor: pointer;
+}
